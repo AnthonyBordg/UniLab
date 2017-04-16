@@ -1,0 +1,980 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>Modules</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library Modules</h1>
+
+<div class="code">
+</div>
+
+<div class="doc">
+Anthony Bordg, February-March 2017 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <span class="id" title="var">UniMath.Algebra.Rigs_and_Rings</span>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <span class="id" title="var">UniMath.Algebra.Monoids_and_Groups</span>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <span class="id" title="var">UniMath.Foundations.Sets</span>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <span class="id" title="var">UniMath.Foundations.UnivalenceAxiom</span>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <span class="id" title="var">UniMath.Foundations.PartA</span>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <span class="id" title="var">UniMath.Foundations.Preamble</span>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <span class="id" title="var">UniMath.Algebra.Domains_and_Fields</span>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <span class="id" title="var">UniMath.CategoryTheory.precategories</span>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <span class="id" title="var">UniMath.Foundations.PartD</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">addmonoid_scope</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab1"></a><h1 class="section">The ring of endomorphisms of an abelian group</h1>
+
+<div class="paragraph"> </div>
+
+ The underlying set of the ring of endomorphisms of an abelian group 
+</div>
+<div class="code">
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">setofendabgr</span> (<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>) : <span class="id" title="var">hSet</span> :=<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">hSetpair</span> (<span class="id" title="var">monoidfun</span> <span class="id" title="var">G</span> <span class="id" title="var">G</span>) (<span class="id" title="var">isasetmonoidfun</span> <span class="id" title="var">G</span> <span class="id" title="var">G</span>).<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">pr1setofendabgr</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} (<span class="id" title="var">f</span> : <span class="id" title="var">setofendabgr</span> <span class="id" title="var">G</span>) : <span class="id" title="var">G</span> → <span class="id" title="var">G</span> := <span class="id" title="var">pr1</span> <span class="id" title="var">f</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">pr2setofendabgr</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} (<span class="id" title="var">f</span> : <span class="id" title="var">setofendabgr</span> <span class="id" title="var">G</span>) : <span class="id" title="var">ismonoidfun</span> (<span class="id" title="var">pr1</span> <span class="id" title="var">f</span>) := <span class="id" title="var">pr2</span> <span class="id" title="var">f</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Two binary operations on the underlying set of the ring of endomorphisms of an abelian group 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <span class="id" title="var">setofendabgr_to_isbinopfun</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} (<span class="id" title="var">f</span> : <span class="id" title="var">setofendabgr</span> <span class="id" title="var">G</span>) : <span class="id" title="var">isbinopfun</span> (<span class="id" title="var">pr1setofendabgr</span> <span class="id" title="var">f</span>) := <span class="id" title="var">pr1</span> (<span class="id" title="var">pr2setofendabgr</span> <span class="id" title="var">f</span>).<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <span class="id" title="var">setofendabgr_to_unel</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} (<span class="id" title="var">f</span> : <span class="id" title="var">setofendabgr</span> <span class="id" title="var">G</span>) : <span class="id" title="var">pr1setofendabgr</span> <span class="id" title="var">f</span> 0 = 0 := <span class="id" title="var">pr2</span> (<span class="id" title="var">pr2setofendabgr</span> <span class="id" title="var">f</span>).<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <span class="id" title="var">setofendabgr_op1</span> {<span class="id" title="var">G</span>: <span class="id" title="var">abgr</span>} : <span class="id" title="var">binop</span> (<span class="id" title="var">setofendabgr</span> <span class="id" title="var">G</span>).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">f</span> <span class="id" title="var">g</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (@<span class="id" title="var">monoidfunconstr</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> (<span class="id" title="var">λ</span> <span class="id" title="var">x</span> : <span class="id" title="var">G</span>, <span class="id" title="var">pr1setofendabgr</span> <span class="id" title="var">f</span> <span class="id" title="var">x</span> + <span class="id" title="var">pr1setofendabgr</span> <span class="id" title="var">g</span> <span class="id" title="var">x</span>)).<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">tpair</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">x'</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> (<span class="id" title="var">setofendabgr_to_isbinopfun</span> <span class="id" title="var">f</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> (<span class="id" title="var">setofendabgr_to_isbinopfun</span> <span class="id" title="var">g</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">abmonoidrer</span> <span class="id" title="var">G</span>).<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">rewrite</span> (<span class="id" title="var">setofendabgr_to_unel</span> <span class="id" title="var">f</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> (<span class="id" title="var">setofendabgr_to_unel</span> <span class="id" title="var">g</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> (<span class="id" title="var">lunax</span> <span class="id" title="var">G</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">reflexivity</span>.<br/>
+<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <span class="id" title="var">setofendabgr_op2</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">binop</span> (<span class="id" title="var">setofendabgr</span> <span class="id" title="var">G</span>).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">f</span> <span class="id" title="var">g</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">monoidfuncomp</span> <span class="id" title="var">f</span> <span class="id" title="var">g</span>).<br/>
+<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Notation</span> &quot;f + g" := (<span class="id" title="var">setofendabgr_op1</span> <span class="id" title="var">f</span> <span class="id" title="var">g</span>) : <span class="id" title="var">abgr_scope</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Notation</span> &quot;f ∘ g" := (<span class="id" title="var">setofendabgr_op2</span> <span class="id" title="var">f</span> <span class="id" title="var">g</span>) : <span class="id" title="var">abgr_scope</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <span class="id" title="var">setwith2binopofendabgr</span> (<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>) : <span class="id" title="var">setwith2binop</span> :=<br/>
+&nbsp;&nbsp;<span class="id" title="var">setwith2binoppair</span> (<span class="id" title="var">setofendabgr</span> <span class="id" title="var">G</span>) (<span class="id" title="var">dirprodpair</span> (<span class="id" title="var">setofendabgr_op1</span>) (<span class="id" title="var">setofendabgr_op2</span>)).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+setofendabgr_op1 G and setofendabgr_op2 G are ring operations 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">abgr_scope</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+setofendabgr_op1 is a monoid operation 
+</div>
+<div class="code">
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">isassoc_setofendabgr_op1</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">isassoc</span> (@<span class="id" title="var">op1</span> (<span class="id" title="var">setwith2binopofendabgr</span> <span class="id" title="var">G</span>)).<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">f</span> <span class="id" title="var">g</span> <span class="id" title="var">h</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">total2_paths_f</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">funextfun</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intro</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">pr2</span> <span class="id" title="var">G</span>).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">isapropismonoidfun</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">setofendabgr_un0</span> {<span class="id" title="var">G</span>: <span class="id" title="var">abgr</span>} : <span class="id" title="var">setofendabgr</span> <span class="id" title="var">G</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (@<span class="id" title="var">monoidfunconstr</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> (<span class="id" title="var">λ</span> <span class="id" title="var">x</span> : <span class="id" title="var">G</span>, 0)).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">dirprodpair</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">x'</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> (<span class="id" title="var">lunax</span> <span class="id" title="var">G</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">islunit_setofendabgr_un0</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">islunit</span> (@<span class="id" title="var">op1</span> (<span class="id" title="var">setwith2binopofendabgr</span> <span class="id" title="var">G</span>)) <span class="id" title="var">setofendabgr_un0</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intro</span> <span class="id" title="var">f</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">total2_paths_f</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">funextfun</span>. <span class="id" title="tactic">intro</span> <span class="id" title="var">x</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">lunax</span> <span class="id" title="var">G</span> (<span class="id" title="var">pr1setofendabgr</span> <span class="id" title="var">f</span> <span class="id" title="var">x</span>)).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">isapropismonoidfun</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <span class="id" title="var">isrunit_setofendabgr_un0</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">isrunit</span> (@<span class="id" title="var">op1</span> (<span class="id" title="var">setwith2binopofendabgr</span> <span class="id" title="var">G</span>)) <span class="id" title="var">setofendabgr_un0</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">f</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">total2_paths_f</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">funextfun</span>. <span class="id" title="tactic">intro</span> <span class="id" title="var">x</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">runax</span> <span class="id" title="var">G</span> (<span class="id" title="var">pr1setofendabgr</span> <span class="id" title="var">f</span> <span class="id" title="var">x</span>)).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">isapropismonoidfun</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">isunit_setofendabgr_un0</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">isunit</span> (@<span class="id" title="var">op1</span> (<span class="id" title="var">setwith2binopofendabgr</span> <span class="id" title="var">G</span>)) <span class="id" title="var">setofendabgr_un0</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">exact</span> (<span class="id" title="var">dirprodpair</span> <span class="id" title="var">islunit_setofendabgr_un0</span> <span class="id" title="var">isrunit_setofendabgr_un0</span>).<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">isunital_setofendabgr_op1</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">isunital</span> (@<span class="id" title="var">op1</span> (<span class="id" title="var">setwith2binopofendabgr</span> <span class="id" title="var">G</span>)).<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">exact</span> (<span class="id" title="var">isunitalpair</span> <span class="id" title="var">setofendabgr_un0</span> <span class="id" title="var">isunit_setofendabgr_un0</span>).<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">ismonoidop_setofendabgr_op1</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">ismonoidop</span> (@<span class="id" title="var">op1</span> (<span class="id" title="var">setwith2binopofendabgr</span> <span class="id" title="var">G</span>)) :=<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">dirprodpair</span> <span class="id" title="var">isassoc_setofendabgr_op1</span> <span class="id" title="var">isunital_setofendabgr_op1</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Local Close</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">abgr_scope</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+setofendabgr_op1 is a group operation 
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <span class="id" title="var">ismonoidfun_abgrinv</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">ismonoidfun</span> (<span class="id" title="var">grinv</span> <span class="id" title="var">G</span>).<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">dirprodpair</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">transitivity</span> (<span class="id" title="var">grinv</span> <span class="id" title="var">G</span> <span class="id" title="var">y</span> + <span class="id" title="var">grinv</span> <span class="id" title="var">G</span> <span class="id" title="var">x</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">exact</span> (<span class="id" title="var">grinvop</span> <span class="id" title="var">G</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">commax</span> <span class="id" title="var">G</span>).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> (<span class="id" title="var">grinvunel</span> <span class="id" title="var">G</span>).<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <span class="id" title="var">setofendabgr_inv</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">setofendabgr</span> <span class="id" title="var">G</span> → <span class="id" title="var">setofendabgr</span> <span class="id" title="var">G</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intro</span> <span class="id" title="var">f</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (@<span class="id" title="var">monoidfunconstr</span> <span class="id" title="var">G</span> <span class="id" title="var">G</span> (<span class="id" title="var">λ</span> <span class="id" title="var">x</span> : <span class="id" title="var">G</span>, <span class="id" title="var">grinv</span> <span class="id" title="var">G</span> (<span class="id" title="var">pr1setofendabgr</span> <span class="id" title="var">f</span> <span class="id" title="var">x</span>))).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">dirprodpair</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">x'</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> (<span class="id" title="var">setofendabgr_to_isbinopfun</span> <span class="id" title="var">f</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">dirprod_pr1</span> <span class="id" title="var">ismonoidfun_abgrinv</span>).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">rewrite</span> (<span class="id" title="var">setofendabgr_to_unel</span> <span class="id" title="var">f</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">grinvunel</span> <span class="id" title="var">G</span>).<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">abgr_scope</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">islinv_setofendabgr_inv</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">islinv</span> (@<span class="id" title="var">op1</span> (<span class="id" title="var">setwith2binopofendabgr</span> <span class="id" title="var">G</span>)) <span class="id" title="var">setofendabgr_un0</span> <span class="id" title="var">setofendabgr_inv</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intro</span> <span class="id" title="var">f</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">total2_paths_f</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">funextfun</span>. <span class="id" title="tactic">intro</span> <span class="id" title="var">x</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">grlinvax</span> <span class="id" title="var">G</span>).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">isapropismonoidfun</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <span class="id" title="var">isrinv_setofendabgr_inv</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">isrinv</span> (@<span class="id" title="var">op1</span> (<span class="id" title="var">setwith2binopofendabgr</span> <span class="id" title="var">G</span>)) <span class="id" title="var">setofendabgr_un0</span> <span class="id" title="var">setofendabgr_inv</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intro</span> <span class="id" title="var">f</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">total2_paths_f</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">funextfun</span>. <span class="id" title="tactic">intro</span> <span class="id" title="var">x</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">grrinvax</span> <span class="id" title="var">G</span>).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">isapropismonoidfun</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <span class="id" title="var">isinv_setofendabgr_inv</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">isinv</span> (@<span class="id" title="var">op1</span> (<span class="id" title="var">setwith2binopofendabgr</span> <span class="id" title="var">G</span>)) <span class="id" title="var">setofendabgr_un0</span> <span class="id" title="var">setofendabgr_inv</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">dirprodpair</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">exact</span> <span class="id" title="var">islinv_setofendabgr_inv</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">exact</span> <span class="id" title="var">isrinv_setofendabgr_inv</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">invstruct_setofendabgr_inv</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">invstruct</span> (@<span class="id" title="var">op1</span> (<span class="id" title="var">setwith2binopofendabgr</span> <span class="id" title="var">G</span>)) <span class="id" title="var">ismonoidop_setofendabgr_op1</span> :=<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">tpair</span> (<span class="id" title="var">λ</span> <span class="id" title="var">inv0</span> : (<span class="id" title="var">setofendabgr</span> <span class="id" title="var">G</span>) → (<span class="id" title="var">setofendabgr</span> <span class="id" title="var">G</span>), <span class="id" title="var">isinv</span> <span class="id" title="var">setofendabgr_op1</span> <span class="id" title="var">setofendabgr_un0</span> <span class="id" title="var">inv0</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">setofendabgr_inv</span> <span class="id" title="var">isinv_setofendabgr_inv</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">isgrop_setofendabgr_op1</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">isgrop</span> (@<span class="id" title="var">op1</span> (<span class="id" title="var">setwith2binopofendabgr</span> <span class="id" title="var">G</span>)) :=<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">tpair</span> (<span class="id" title="var">λ</span> <span class="id" title="var">is</span> : <span class="id" title="var">ismonoidop</span> <span class="id" title="var">setofendabgr_op1</span>, <span class="id" title="var">invstruct</span> <span class="id" title="var">setofendabgr_op1</span> <span class="id" title="var">is</span>) <span class="id" title="var">ismonoidop_setofendabgr_op1</span> <span class="id" title="var">invstruct_setofendabgr_inv</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">iscomm_setofendabgr_op1</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">iscomm</span> (@<span class="id" title="var">op1</span> (<span class="id" title="var">setwith2binopofendabgr</span> <span class="id" title="var">G</span>)).<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">f</span> <span class="id" title="var">g</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">total2_paths_f</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">funextfun</span>. <span class="id" title="tactic">intro</span> <span class="id" title="var">x</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">commax</span> <span class="id" title="var">G</span>).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> (<span class="id" title="var">isapropismonoidfun</span>).<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <span class="id" title="var">isabgrop_setofendabgr_op1</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">isabgrop</span> (@<span class="id" title="var">op1</span> (<span class="id" title="var">setwith2binopofendabgr</span> <span class="id" title="var">G</span>)) :=<br/>
+&nbsp;&nbsp;<span class="id" title="var">dirprodpair</span> <span class="id" title="var">isgrop_setofendabgr_op1</span> <span class="id" title="var">iscomm_setofendabgr_op1</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+setofendabgr_op2 is a monoid operation 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <span class="id" title="var">isassoc_setofendabgr_op2</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">isassoc</span> (@<span class="id" title="var">op2</span> (<span class="id" title="var">setwith2binopofendabgr</span> <span class="id" title="var">G</span>)).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">f</span> <span class="id" title="var">g</span> <span class="id" title="var">h</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">total2_paths_f</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">funcomp_assoc</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">isapropismonoidfun</span>.<br/>
+<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <span class="id" title="var">setofendabgr_un1</span> {<span class="id" title="var">G</span>: <span class="id" title="var">abgr</span>} : <span class="id" title="var">setofendabgr</span> <span class="id" title="var">G</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (@<span class="id" title="var">monoidfunconstr</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> (<span class="id" title="var">idfun</span> <span class="id" title="var">G</span>)).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">dirprodpair</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">x'</span>. <span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">islunit_setofendabgr_un1</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">islunit</span> (@<span class="id" title="var">op2</span> (<span class="id" title="var">setwith2binopofendabgr</span> <span class="id" title="var">G</span>)) <span class="id" title="var">setofendabgr_un1</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intro</span> <span class="id" title="var">f</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">total2_paths_f</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">funextfun</span>. <span class="id" title="tactic">intro</span> <span class="id" title="var">x</span>. <span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">isapropismonoidfun</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <span class="id" title="var">isrunit_setofendabgr_un1</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">isrunit</span> (@<span class="id" title="var">op2</span> (<span class="id" title="var">setwith2binopofendabgr</span> <span class="id" title="var">G</span>)) <span class="id" title="var">setofendabgr_un1</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">f</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">total2_paths_f</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">funextfun</span>. <span class="id" title="tactic">intro</span> <span class="id" title="var">x</span>. <span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">isapropismonoidfun</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">isunit_setofendabgr_un1</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">isunit</span> (@<span class="id" title="var">op2</span> (<span class="id" title="var">setwith2binopofendabgr</span> <span class="id" title="var">G</span>)) <span class="id" title="var">setofendabgr_un1</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">exact</span> (<span class="id" title="var">dirprodpair</span> <span class="id" title="var">islunit_setofendabgr_un1</span> <span class="id" title="var">isrunit_setofendabgr_un1</span>).<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">isunital_setofendabgr_op2</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">isunital</span> (@<span class="id" title="var">op2</span> (<span class="id" title="var">setwith2binopofendabgr</span> <span class="id" title="var">G</span>)).<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">exact</span> (<span class="id" title="var">isunitalpair</span> <span class="id" title="var">setofendabgr_un1</span> <span class="id" title="var">isunit_setofendabgr_un1</span>).<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">ismonoidop_setofendabgr_op2</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">ismonoidop</span> (@<span class="id" title="var">op2</span> (<span class="id" title="var">setwith2binopofendabgr</span> <span class="id" title="var">G</span>)) :=<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">dirprodpair</span> <span class="id" title="var">isassoc_setofendabgr_op2</span> <span class="id" title="var">isunital_setofendabgr_op2</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+setofendabgr_op2 is distributive over setofendabgr_op1 
+</div>
+<div class="code">
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">isldistr_setofendabgr_op</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">isldistr</span> (@<span class="id" title="var">op1</span> (<span class="id" title="var">setwith2binopofendabgr</span> <span class="id" title="var">G</span>)) <span class="id" title="var">op2</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">f</span> <span class="id" title="var">g</span> <span class="id" title="var">h</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">total2_paths_f</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">funextfun</span>. <span class="id" title="tactic">intro</span> <span class="id" title="var">x</span>. <span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">isapropismonoidfun</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <span class="id" title="var">isrdistr_setofendabgr_op</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">isrdistr</span> (@<span class="id" title="var">op1</span> (<span class="id" title="var">setwith2binopofendabgr</span> <span class="id" title="var">G</span>)) <span class="id" title="var">op2</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">f</span> <span class="id" title="var">g</span> <span class="id" title="var">h</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">total2_paths_f</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">funextfun</span>. <span class="id" title="tactic">intro</span> <span class="id" title="var">x</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">setofendabgr_to_isbinopfun</span> <span class="id" title="var">h</span>).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">isapropismonoidfun</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">isdistr_setofendabgr_op</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">isdistr</span> (@<span class="id" title="var">op1</span> (<span class="id" title="var">setwith2binopofendabgr</span> <span class="id" title="var">G</span>)) <span class="id" title="var">op2</span> :=<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">dirprodpair</span> <span class="id" title="var">isldistr_setofendabgr_op</span> <span class="id" title="var">isrdistr_setofendabgr_op</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">isrngops_setofendabgr_op</span> {<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>} : <span class="id" title="var">isrngops</span> (@<span class="id" title="var">op1</span> (<span class="id" title="var">setwith2binopofendabgr</span> <span class="id" title="var">G</span>)) <span class="id" title="var">op2</span> :=<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">dirprodpair</span> (<span class="id" title="var">dirprodpair</span> <span class="id" title="var">isabgrop_setofendabgr_op1</span> <span class="id" title="var">ismonoidop_setofendabgr_op2</span>) <span class="id" title="var">isdistr_setofendabgr_op</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The set of endomorphisms of an abelian group is a ring 
+</div>
+<div class="code">
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">rngofendabgr</span> (<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>) : <span class="id" title="var">rng</span> :=<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">rngpair</span> (@<span class="id" title="var">isrngops_setofendabgr_op</span> <span class="id" title="var">G</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab2"></a><h2 class="section">The definition of the small type of (left) R-modules over a ring R</h2>
+
+</div>
+<div class="code">
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">module</span> (<span class="id" title="var">R</span> : <span class="id" title="var">rng</span>) : <span class="id" title="var">UU</span> := ∑ <span class="id" title="var">G</span>, <span class="id" title="var">rngfun</span> <span class="id" title="var">R</span> (<span class="id" title="var">rngofendabgr</span> <span class="id" title="var">G</span>).<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">pr1module</span> {<span class="id" title="var">R</span> : <span class="id" title="var">rng</span>} (<span class="id" title="var">M</span> : <span class="id" title="var">module</span> <span class="id" title="var">R</span>) : <span class="id" title="var">abgr</span> := <span class="id" title="var">pr1</span> <span class="id" title="var">M</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Coercion</span> <span class="id" title="var">pr1module</span> : <span class="id" title="var">module</span> &gt;-&gt; <span class="id" title="var">abgr</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">module_struct</span> {<span class="id" title="var">R</span> : <span class="id" title="var">rng</span>} (<span class="id" title="var">G</span> : <span class="id" title="var">abgr</span>) : <span class="id" title="var">UU</span> := <span class="id" title="var">rngfun</span> <span class="id" title="var">R</span> (<span class="id" title="var">rngofendabgr</span> <span class="id" title="var">G</span>).<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">pr2module</span> {<span class="id" title="var">R</span> : <span class="id" title="var">rng</span>} (<span class="id" title="var">M</span> : <span class="id" title="var">module</span> <span class="id" title="var">R</span>) : <span class="id" title="var">rngfun</span> <span class="id" title="var">R</span> (<span class="id" title="var">rngofendabgr</span> (<span class="id" title="var">pr1module</span> <span class="id" title="var">M</span>)) := <span class="id" title="var">pr2</span> <span class="id" title="var">M</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Coercion</span> <span class="id" title="var">pr2module</span> : <span class="id" title="var">module</span> &gt;-&gt; <span class="id" title="var">rngfun</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The multiplication defined from a module 
+</div>
+<div class="code">
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">module_mult</span> {<span class="id" title="var">R</span> : <span class="id" title="var">rng</span>} {<span class="id" title="var">M</span> : @<span class="id" title="var">module</span> <span class="id" title="var">R</span>} : <span class="id" title="var">R</span> × <span class="id" title="var">M</span> → <span class="id" title="var">M</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">uncurry</span>. <span class="id" title="tactic">intros</span> <span class="id" title="var">r</span> <span class="id" title="var">x</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">exact</span> (<span class="id" title="var">pr1setofendabgr</span> (<span class="id" title="var">M</span> <span class="id" title="var">r</span>) <span class="id" title="var">x</span>).<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">rig_scope</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">rigfun_to_unel_rigaddmonoid</span> {<span class="id" title="var">X</span> <span class="id" title="var">Y</span> : <span class="id" title="var">rig</span>} (<span class="id" title="var">f</span> : <span class="id" title="var">rigfun</span> <span class="id" title="var">X</span> <span class="id" title="var">Y</span>) : <span class="id" title="var">f</span> 0 = 0 := <span class="id" title="var">pr2</span> (<span class="id" title="var">pr1</span> (<span class="id" title="var">pr2</span> <span class="id" title="var">f</span>)).<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Local Close</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">rig_scope</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">rng_scope</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">module_mult_0_to_0</span> {<span class="id" title="var">R</span> : <span class="id" title="var">rng</span>} {<span class="id" title="var">M</span> : @<span class="id" title="var">module</span> <span class="id" title="var">R</span>} (<span class="id" title="var">x</span> : <span class="id" title="var">M</span>) : <span class="id" title="var">module_mult</span> (0,,<span class="id" title="var">x</span>) = @<span class="id" title="var">unel</span> <span class="id" title="var">M</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">unfold</span> <span class="id" title="var">module_mult</span>, <span class="id" title="var">uncurry</span>. <span class="id" title="var">cbn</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">assert</span> (<span class="id" title="var">M</span> <span class="id" title="var">rngunel1</span> = @<span class="id" title="var">rngunel1</span> (<span class="id" title="var">rngofendabgr</span> <span class="id" title="var">M</span>)).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">exact</span> (<span class="id" title="var">rigfun_to_unel_rigaddmonoid</span> <span class="id" title="var">M</span>).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">rewrite</span> <span class="id" title="var">X</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+(left) R-module homomorphism 
+</div>
+<div class="code">
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">ismodulefun</span> {<span class="id" title="var">R</span> : <span class="id" title="var">rng</span>} {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">module</span> <span class="id" title="var">R</span>} (<span class="id" title="var">f</span> : <span class="id" title="var">M</span> → <span class="id" title="var">N</span>) : <span class="id" title="var">UU</span> :=<br/>
+&nbsp;&nbsp;&nbsp;(<span class="id" title="var">isbinopfun</span> <span class="id" title="var">f</span>) × (∏ <span class="id" title="var">r</span> : <span class="id" title="var">R</span>, ∏ <span class="id" title="var">x</span> : <span class="id" title="var">M</span>, <span class="id" title="var">f</span> (<span class="id" title="var">module_mult</span> (<span class="id" title="var">r</span>,,<span class="id" title="var">x</span>)) = <span class="id" title="var">module_mult</span> (<span class="id" title="var">r</span>,,(<span class="id" title="var">f</span> <span class="id" title="var">x</span>))).<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Lemma</span> <span class="id" title="var">isapropismodulefun</span> {<span class="id" title="var">R</span> : <span class="id" title="var">rng</span>} {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">module</span> <span class="id" title="var">R</span>} (<span class="id" title="var">f</span> : <span class="id" title="var">M</span> → <span class="id" title="var">N</span>) : <span class="id" title="var">isaprop</span> (@<span class="id" title="var">ismodulefun</span> <span class="id" title="var">R</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span> <span class="id" title="var">f</span>).<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">refine</span> (@<span class="id" title="var">isofhleveldirprod</span> 1 (<span class="id" title="var">isbinopfun</span> <span class="id" title="var">f</span>) (∏ <span class="id" title="var">r</span> : <span class="id" title="var">R</span>, ∏ <span class="id" title="var">x</span> : <span class="id" title="var">M</span>, <span class="id" title="var">f</span> (<span class="id" title="var">module_mult</span> (<span class="id" title="var">r</span>,,<span class="id" title="var">x</span>)) = <span class="id" title="var">module_mult</span> (<span class="id" title="var">r</span>,,(<span class="id" title="var">f</span> <span class="id" title="var">x</span>))) <span class="id" title="var">_</span> <span class="id" title="var">_</span>).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">exact</span> (<span class="id" title="var">isapropisbinopfun</span> <span class="id" title="var">f</span>).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">impred</span> 1 <span class="id" title="var">_</span>). <span class="id" title="tactic">intro</span> <span class="id" title="var">r</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">impred</span> 1 <span class="id" title="var">_</span>). <span class="id" title="tactic">intro</span> <span class="id" title="var">x</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">setproperty</span> <span class="id" title="var">N</span>).<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">modulefun</span> {<span class="id" title="var">R</span> : <span class="id" title="var">rng</span>} (<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">module</span> <span class="id" title="var">R</span>) := <span class="id" title="var">total2</span> (<span class="id" title="var">λ</span> <span class="id" title="var">f</span> : <span class="id" title="var">M</span> → <span class="id" title="var">N</span>, @<span class="id" title="var">ismodulefun</span> <span class="id" title="var">R</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span> <span class="id" title="var">f</span>).<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">modulefunpair</span> {<span class="id" title="var">R</span> : <span class="id" title="var">rng</span>} {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">module</span> <span class="id" title="var">R</span>} (<span class="id" title="var">f</span> : <span class="id" title="var">M</span> → <span class="id" title="var">N</span>) (<span class="id" title="var">is</span> : @<span class="id" title="var">ismodulefun</span> <span class="id" title="var">R</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span> <span class="id" title="var">f</span>) :=<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">tpair</span> <span class="id" title="var">_</span> <span class="id" title="var">f</span> <span class="id" title="var">is</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">pr1modulefun</span> {<span class="id" title="var">R</span> : <span class="id" title="var">rng</span>} {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">module</span> <span class="id" title="var">R</span>} (<span class="id" title="var">f</span> : @<span class="id" title="var">modulefun</span> <span class="id" title="var">R</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>) : <span class="id" title="var">M</span> → <span class="id" title="var">N</span> := <span class="id" title="var">pr1</span> <span class="id" title="var">f</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Coercion</span> <span class="id" title="var">pr1modulefun</span> : <span class="id" title="var">modulefun</span> &gt;-&gt; <span class="id" title="var">Funclass</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">islinear</span> {<span class="id" title="var">R</span> : <span class="id" title="var">rng</span>} {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">module</span> <span class="id" title="var">R</span>} (<span class="id" title="var">f</span> : <span class="id" title="var">M</span> → <span class="id" title="var">N</span>) :=<br/>
+&nbsp;&nbsp;&nbsp;∏ <span class="id" title="var">r</span> : <span class="id" title="var">R</span>, ∏ <span class="id" title="var">x</span> : <span class="id" title="var">M</span>, <span class="id" title="var">f</span> (<span class="id" title="var">module_mult</span> (<span class="id" title="var">r</span>,,<span class="id" title="var">x</span>)) = <span class="id" title="var">module_mult</span> (<span class="id" title="var">r</span>,,(<span class="id" title="var">f</span> <span class="id" title="var">x</span>)).<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">modulefun_to_islinear</span> {<span class="id" title="var">R</span> : <span class="id" title="var">rng</span>} {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">module</span> <span class="id" title="var">R</span>} (<span class="id" title="var">f</span> : <span class="id" title="var">modulefun</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>): <span class="id" title="var">islinear</span> <span class="id" title="var">f</span> := <span class="id" title="var">pr2</span> (<span class="id" title="var">pr2</span> <span class="id" title="var">f</span>).<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">modulefun_unel</span> {<span class="id" title="var">R</span> : <span class="id" title="var">rng</span>} {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">module</span> <span class="id" title="var">R</span>} (<span class="id" title="var">f</span> : @<span class="id" title="var">modulefun</span> <span class="id" title="var">R</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>) : <span class="id" title="var">f</span> (@<span class="id" title="var">unel</span> <span class="id" title="var">M</span>) = @<span class="id" title="var">unel</span> <span class="id" title="var">N</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> &lt;- (<span class="id" title="var">module_mult_0_to_0</span> (@<span class="id" title="var">unel</span> <span class="id" title="var">M</span>)).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> ((<span class="id" title="var">modulefun_to_islinear</span> <span class="id" title="var">f</span>) <span class="id" title="var">rngunel1</span> (@<span class="id" title="var">unel</span> <span class="id" title="var">M</span>)).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> (<span class="id" title="var">module_mult_0_to_0</span> <span class="id" title="var">_</span>).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">modulefun_to_isbinopfun</span> {<span class="id" title="var">R</span> : <span class="id" title="var">rng</span>} {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">module</span> <span class="id" title="var">R</span>} (<span class="id" title="var">f</span> : <span class="id" title="var">modulefun</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>) : <span class="id" title="var">isbinopfun</span> <span class="id" title="var">f</span> := <span class="id" title="var">pr1</span> (<span class="id" title="var">pr2</span> <span class="id" title="var">f</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab3"></a><h3 class="section">The precategory of (left) R-modules and R-modules homomorphisms</h3>
+
+</div>
+<div class="code">
+
+<br/>
+&nbsp;<span class="id" title="keyword">Section</span> <span class="id" title="var">modules_precategory</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">precategory_ob_mor_module</span> {<span class="id" title="var">R</span>: <span class="id" title="var">rng</span>} : <span class="id" title="var">precategory_ob_mor</span> :=<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">precategory_ob_mor_pair</span> (@<span class="id" title="var">module</span> <span class="id" title="var">R</span>) (<span class="id" title="var">λ</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>, <span class="id" title="var">modulefun</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>).<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">Cat</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">modulefun_id</span> {<span class="id" title="var">R</span> : <span class="id" title="var">rng</span>}: ∏ <span class="id" title="var">M</span> : @<span class="id" title="var">precategory_ob_mor_module</span> <span class="id" title="var">R</span>, <span class="id" title="var">M</span> --&gt; <span class="id" title="var">M</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intro</span> <span class="id" title="var">M</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">refine</span> (<span class="id" title="var">tpair</span> <span class="id" title="var">_</span> (<span class="id" title="var">idfun</span> (<span class="id" title="var">pr1module</span> <span class="id" title="var">M</span>)) <span class="id" title="var">_</span>).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">dirprodpair</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>. <span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">intros</span>. <span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">modulefun_comp</span> {<span class="id" title="var">R</span> : <span class="id" title="var">rng</span>} : ∏ <span class="id" title="var">M</span> <span class="id" title="var">N</span> <span class="id" title="var">P</span> : @<span class="id" title="var">precategory_ob_mor_module</span> <span class="id" title="var">R</span>, <span class="id" title="var">M</span> --&gt; <span class="id" title="var">N</span> → <span class="id" title="var">N</span> --&gt; <span class="id" title="var">P</span> → <span class="id" title="var">M</span> --&gt; <span class="id" title="var">P</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span>  <span class="id" title="var">M</span> <span class="id" title="var">N</span> <span class="id" title="var">P</span> <span class="id" title="var">f</span> <span class="id" title="var">g</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">refine</span> (<span class="id" title="var">tpair</span> <span class="id" title="var">_</span> (<span class="id" title="var">funcomp</span> (<span class="id" title="var">pr1</span> <span class="id" title="var">f</span>) (<span class="id" title="var">pr1</span> <span class="id" title="var">g</span>)) <span class="id" title="var">_</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">dirprodpair</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">unfold</span> <span class="id" title="var">funcomp</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> &lt;- (<span class="id" title="var">modulefun_to_isbinopfun</span> <span class="id" title="var">g</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> &lt;- (<span class="id" title="var">modulefun_to_isbinopfun</span> <span class="id" title="var">f</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">intros</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">unfold</span> <span class="id" title="var">funcomp</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> (<span class="id" title="var">modulefun_to_islinear</span> <span class="id" title="var">f</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> (<span class="id" title="var">modulefun_to_islinear</span> <span class="id" title="var">g</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">precategory_id_comp_module</span> {<span class="id" title="var">R</span> : <span class="id" title="var">rng</span>} : <span class="id" title="var">precategory_id_comp</span> (@<span class="id" title="var">precategory_ob_mor_module</span> <span class="id" title="var">R</span>).<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">dirprodpair</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">exact</span> (<span class="id" title="var">modulefun_id</span>).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">exact</span> (<span class="id" title="var">modulefun_comp</span>).<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">precategory_data_module</span> {<span class="id" title="var">R</span> : <span class="id" title="var">rng</span>} : <span class="id" title="var">precategory_data</span> :=<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">tpair</span> <span class="id" title="var">_</span> (@<span class="id" title="var">precategory_ob_mor_module</span> <span class="id" title="var">R</span>) (<span class="id" title="var">precategory_id_comp_module</span>).<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">is_precategory_precategory_data_module</span> {<span class="id" title="var">R</span> : <span class="id" title="var">rng</span>} : <span class="id" title="var">is_precategory</span> (@<span class="id" title="var">precategory_data_module</span> <span class="id" title="var">R</span>).<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">dirprodpair</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">dirprodpair</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">intros</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span> <span class="id" title="var">f</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">total2_paths_f</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;× <span class="id" title="tactic">apply</span> <span class="id" title="var">funextfun</span>. <span class="id" title="tactic">intro</span> <span class="id" title="var">x</span>. <span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;× <span class="id" title="tactic">apply</span> <span class="id" title="var">isapropismodulefun</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">intros</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span> <span class="id" title="var">f</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">total2_paths_f</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;× <span class="id" title="tactic">apply</span> <span class="id" title="var">funextfun</span>. <span class="id" title="tactic">intro</span> <span class="id" title="var">x</span>. <span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;× <span class="id" title="tactic">apply</span> <span class="id" title="var">isapropismodulefun</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">intros</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span> <span class="id" title="var">P</span> <span class="id" title="var">Q</span> <span class="id" title="var">f</span> <span class="id" title="var">g</span> <span class="id" title="var">h</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">total2_paths_f</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">apply</span> <span class="id" title="var">funextfun</span>. <span class="id" title="tactic">intro</span> <span class="id" title="var">x</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">unfold</span> <span class="id" title="var">compose</span>. <span class="id" title="var">cbn</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <span class="id" title="var">funcomp_assoc</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">apply</span> <span class="id" title="var">isapropismodulefun</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">precategory_module</span> (<span class="id" title="var">R</span> : <span class="id" title="var">rng</span>) : <span class="id" title="var">precategory</span> :=<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">tpair</span> <span class="id" title="var">_</span> (@<span class="id" title="var">precategory_data_module</span> <span class="id" title="var">R</span>) (<span class="id" title="var">is_precategory_precategory_data_module</span>).<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">End</span> <span class="id" title="var">modules_precategory</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab4"></a><h4 class="section">The category of (left) R-modules and R-modules homomorphisms</h4>
+
+</div>
+<div class="code">
+
+<br/>
+&nbsp;<span class="id" title="keyword">Section</span> <span class="id" title="var">modules_category</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Variable</span> <span class="id" title="var">R</span> : <span class="id" title="var">rng</span>.<br/>
+&nbsp;<span class="id" title="keyword">Notation</span> &quot;R-mod" := (<span class="id" title="var">precategory_module</span> <span class="id" title="var">R</span>).<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">has_homsets_precategory_module</span> : <span class="id" title="var">has_homsets</span> (<span class="id" title="var">R</span>-<span class="id" title="var">mod</span>).<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>. <span class="id" title="tactic">unfold</span> <span class="id" title="var">isaset</span>. <span class="id" title="tactic">intros</span> <span class="id" title="var">f</span> <span class="id" title="var">g</span>. <span class="id" title="tactic">unfold</span> <span class="id" title="var">isaprop</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">isofhlevelweqb</span> 1 (<span class="id" title="var">total2_paths_equiv</span> (<span class="id" title="var">λ</span> <span class="id" title="var">x</span> :  <span class="id" title="var">pr1module</span> <span class="id" title="var">M</span> →  <span class="id" title="var">pr1module</span> <span class="id" title="var">N</span>, <span class="id" title="var">ismodulefun</span> <span class="id" title="var">x</span>) <span class="id" title="var">f</span> <span class="id" title="var">g</span>)).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">refine</span> (<span class="id" title="var">isofhleveltotal2</span> 1 <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span>).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">assert</span> (<span class="id" title="var">p</span> : <span class="id" title="var">isofhlevel</span> 2 (<span class="id" title="var">pr1module</span> <span class="id" title="var">M</span> →  <span class="id" title="var">pr1module</span> <span class="id" title="var">N</span>)).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">apply</span> <span class="id" title="var">impred</span>. <span class="id" title="tactic">intro</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">exact</span> (<span class="id" title="var">setproperty</span> (<span class="id" title="var">pr1module</span> <span class="id" title="var">N</span>)).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">exact</span> (<span class="id" title="var">p</span> (<span class="id" title="var">pr1</span> <span class="id" title="var">f</span>) (<span class="id" title="var">pr1</span> <span class="id" title="var">g</span>)).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">intro</span> <span class="id" title="var">p</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">assert</span> (<span class="id" title="var">q</span> : <span class="id" title="var">isaset</span> (@<span class="id" title="var">ismodulefun</span> <span class="id" title="var">R</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span> (<span class="id" title="var">pr1</span> <span class="id" title="var">g</span>))).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">exact</span> (<span class="id" title="var">isasetaprop</span> (<span class="id" title="var">isapropismodulefun</span> (<span class="id" title="var">pr1</span> <span class="id" title="var">g</span>))).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">apply</span> <span class="id" title="var">q</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">moduleiso</span> (<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>) := <span class="id" title="var">total2</span> (<span class="id" title="var">λ</span> <span class="id" title="var">w</span> : <span class="id" title="var">pr1module</span> <span class="id" title="var">M</span> ≃ <span class="id" title="var">pr1module</span> <span class="id" title="var">N</span>, <span class="id" title="var">ismodulefun</span> <span class="id" title="var">w</span>).<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">moduleiso_modulefun</span> {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>} : <span class="id" title="var">moduleiso</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span> → <span class="id" title="var">modulefun</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intro</span> <span class="id" title="var">f</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">exact</span> (<span class="id" title="var">tpair</span> <span class="id" title="var">_</span> (<span class="id" title="var">pr1weq</span> (<span class="id" title="var">pr1</span> <span class="id" title="var">f</span>)) (<span class="id" title="var">pr2</span> <span class="id" title="var">f</span>)).<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Coercion</span> <span class="id" title="var">moduleiso_modulefun</span> : <span class="id" title="var">moduleiso</span> &gt;-&gt; <span class="id" title="var">modulefun</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">pr1moduleiso</span> {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>} (<span class="id" title="var">f</span> : <span class="id" title="var">moduleiso</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>) : <span class="id" title="var">weq</span> (<span class="id" title="var">pr1module</span> <span class="id" title="var">M</span>) (<span class="id" title="var">pr1module</span> <span class="id" title="var">N</span>) := <span class="id" title="var">pr1</span> <span class="id" title="var">f</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Coercion</span> <span class="id" title="var">pr1moduleiso</span> : <span class="id" title="var">moduleiso</span> &gt;-&gt; <span class="id" title="var">weq</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">moduleisopair</span> {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>} (<span class="id" title="var">f</span> : <span class="id" title="var">pr1module</span> <span class="id" title="var">M</span> ≃ <span class="id" title="var">pr1module</span> <span class="id" title="var">N</span>) (<span class="id" title="var">is</span> : <span class="id" title="var">ismodulefun</span> <span class="id" title="var">f</span>) : <span class="id" title="var">moduleiso</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span> :=<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">tpair</span> <span class="id" title="var">_</span> <span class="id" title="var">f</span> <span class="id" title="var">is</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">idmoduleiso</span> (<span class="id" title="var">M</span> : <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>) : <span class="id" title="var">moduleiso</span> <span class="id" title="var">M</span> <span class="id" title="var">M</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">moduleisopair</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">exact</span> (<span class="id" title="var">idweq</span> (<span class="id" title="var">pr1module</span> <span class="id" title="var">M</span>)).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="var">use</span> <span class="id" title="var">dirprodpair</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>. <span class="id" title="var">use</span> <span class="id" title="var">idpath</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">intros</span> <span class="id" title="var">r</span> <span class="id" title="var">x</span>. <span class="id" title="var">use</span> <span class="id" title="var">idpath</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">isbinopfuninvmap</span> {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>} (<span class="id" title="var">f</span> : <span class="id" title="var">moduleiso</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>) : <span class="id" title="var">isbinopfun</span> (<span class="id" title="var">invmap</span> <span class="id" title="var">f</span>).<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">invmaponpathsweq</span> <span class="id" title="var">f</span>).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> (<span class="id" title="var">homotweqinvweq</span> <span class="id" title="var">f</span> (<span class="id" title="var">op</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>)).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">symmetry</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">transitivity</span> (<span class="id" title="var">op</span> ((<span class="id" title="var">pr1moduleiso</span> <span class="id" title="var">f</span>) (<span class="id" title="var">invmap</span> <span class="id" title="var">f</span> <span class="id" title="var">x</span>)) ((<span class="id" title="var">pr1moduleiso</span> <span class="id" title="var">f</span>) (<span class="id" title="var">invmap</span> <span class="id" title="var">f</span> <span class="id" title="var">y</span>))).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">modulefun_to_isbinopfun</span> <span class="id" title="var">f</span> (<span class="id" title="var">invmap</span> <span class="id" title="var">f</span> <span class="id" title="var">x</span>) (<span class="id" title="var">invmap</span> <span class="id" title="var">f</span> <span class="id" title="var">y</span>)).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> 2 (<span class="id" title="var">homotweqinvweq</span> <span class="id" title="var">f</span>).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">islinearinvmap</span> {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>} (<span class="id" title="var">f</span> : <span class="id" title="var">moduleiso</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>) : <span class="id" title="var">islinear</span> (<span class="id" title="var">invmap</span> <span class="id" title="var">f</span>).<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">r</span> <span class="id" title="var">x</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">f</span> <span class="id" title="keyword">as</span> [<span class="id" title="var">f</span> <span class="id" title="var">is</span>].<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">invmaponpathsweq</span> <span class="id" title="var">f</span>).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">transitivity</span> (<span class="id" title="var">module_mult</span> (<span class="id" title="var">r</span>,,<span class="id" title="var">x</span>)).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">exact</span> (<span class="id" title="var">homotweqinvweq</span> <span class="id" title="var">f</span> (@<span class="id" title="var">module_mult</span> <span class="id" title="var">R</span> <span class="id" title="var">N</span> (<span class="id" title="var">r</span>,, <span class="id" title="var">x</span>))).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">transitivity</span> (<span class="id" title="var">module_mult</span> (<span class="id" title="var">r</span>,, <span class="id" title="var">f</span>(<span class="id" title="var">invmap</span> <span class="id" title="var">f</span> <span class="id" title="var">x</span>))).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> (<span class="id" title="var">homotweqinvweq</span> <span class="id" title="var">f</span> <span class="id" title="var">x</span>).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">symmetry</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">pr2</span> <span class="id" title="var">is</span> <span class="id" title="var">r</span> (<span class="id" title="var">invmap</span> <span class="id" title="var">f</span> <span class="id" title="var">x</span>)).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">invmoduleiso</span> {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>} (<span class="id" title="var">f</span> : <span class="id" title="var">moduleiso</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>) : <span class="id" title="var">moduleiso</span> <span class="id" title="var">N</span> <span class="id" title="var">M</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">moduleisopair</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">exact</span> (<span class="id" title="var">invweq</span> <span class="id" title="var">f</span>).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="var">use</span> <span class="id" title="var">dirprodpair</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">exact</span> (<span class="id" title="var">isbinopfuninvmap</span> <span class="id" title="var">f</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">exact</span> (<span class="id" title="var">islinearinvmap</span> <span class="id" title="var">f</span>).<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">isaprop_islinear</span> {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>} {<span class="id" title="var">f</span> : (<span class="id" title="var">pr1module</span> <span class="id" title="var">M</span>) → (<span class="id" title="var">pr1module</span> <span class="id" title="var">N</span>)} : <span class="id" title="var">isaprop</span> (@<span class="id" title="var">islinear</span> <span class="id" title="var">R</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span> <span class="id" title="var">f</span>).<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">impred</span>. <span class="id" title="tactic">intro</span> <span class="id" title="var">r</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">impred</span>. <span class="id" title="tactic">intro</span> <span class="id" title="var">x</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">setproperty</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">moduleiso'</span> (<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>) : <span class="id" title="var">UU</span> :=<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">total2</span> (<span class="id" title="var">λ</span> <span class="id" title="var">w</span> : <span class="id" title="var">monoidiso</span> (<span class="id" title="var">pr1module</span> <span class="id" title="var">M</span>) (<span class="id" title="var">pr1module</span> <span class="id" title="var">N</span>), <span class="id" title="var">islinear</span> <span class="id" title="var">w</span>).<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">moduleiso_to_moduleiso'</span> {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>} : <span class="id" title="var">moduleiso</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span> → <span class="id" title="var">moduleiso'</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intro</span> <span class="id" title="var">w</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">tpair</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="var">use</span> <span class="id" title="var">tpair</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">exact</span> <span class="id" title="var">w</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="var">use</span> <span class="id" title="var">tpair</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;× <span class="id" title="tactic">exact</span> (<span class="id" title="var">modulefun_to_isbinopfun</span> <span class="id" title="var">w</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;× <span class="id" title="var">use</span> (<span class="id" title="var">modulefun_unel</span> <span class="id" title="var">w</span>).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">exact</span> (<span class="id" title="var">modulefun_to_islinear</span> <span class="id" title="var">w</span>).<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">moduleiso'_to_moduleiso</span> {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>} : <span class="id" title="var">moduleiso'</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span> → <span class="id" title="var">moduleiso</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intro</span> <span class="id" title="var">w</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">tpair</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">exact</span> (<span class="id" title="var">pr1</span> <span class="id" title="var">w</span>).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="var">use</span> <span class="id" title="var">dirprodpair</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">exact</span> (<span class="id" title="var">pr1</span> (<span class="id" title="var">pr2</span> (<span class="id" title="var">pr1</span> <span class="id" title="var">w</span>))).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">exact</span> (<span class="id" title="var">pr2</span> <span class="id" title="var">w</span>).<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Lemma</span> <span class="id" title="var">modulefun_unel_uniqueness</span> {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>} {<span class="id" title="var">f</span> : <span class="id" title="var">pr1module</span> <span class="id" title="var">M</span> → <span class="id" title="var">pr1module</span> <span class="id" title="var">N</span>} {<span class="id" title="var">is</span>: <span class="id" title="var">ismodulefun</span> <span class="id" title="var">f</span>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">p</span> : <span class="id" title="var">f</span> (@<span class="id" title="var">unel</span> (<span class="id" title="var">pr1module</span> <span class="id" title="var">M</span>)) = @<span class="id" title="var">unel</span> (<span class="id" title="var">pr1module</span> <span class="id" title="var">N</span>)) : <span class="id" title="var">modulefun_unel</span> (<span class="id" title="var">f</span>,,<span class="id" title="var">is</span>) = <span class="id" title="var">p</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">setproperty</span> (<span class="id" title="var">pr1module</span> <span class="id" title="var">N</span>)).<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">moduleiso'_to_moduleiso_isweq</span> {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>} : <span class="id" title="var">isweq</span> (@<span class="id" title="var">moduleiso'_to_moduleiso</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>).<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> (<span class="id" title="var">gradth</span> <span class="id" title="var">_</span> <span class="id" title="var">moduleiso_to_moduleiso'</span>). <span class="id" title="tactic">intro</span> <span class="id" title="var">w</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">w</span> <span class="id" title="keyword">as</span> [<span class="id" title="var">w</span> <span class="id" title="var">is</span>].<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">unfold</span> <span class="id" title="var">moduleiso'_to_moduleiso</span>, <span class="id" title="var">moduleiso_to_moduleiso'</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">w</span> <span class="id" title="keyword">as</span> [<span class="id" title="var">w</span> <span class="id" title="var">is'</span>].<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">is'</span> <span class="id" title="keyword">as</span> [<span class="id" title="var">is''</span> <span class="id" title="var">p</span>].<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> (<span class="id" title="var">modulefun_unel_uniqueness</span> <span class="id" title="var">p</span>).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intro</span> <span class="id" title="var">w</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">w</span> <span class="id" title="keyword">as</span> [<span class="id" title="var">w</span> <span class="id" title="var">is</span>].<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">unfold</span> <span class="id" title="var">moduleiso_to_moduleiso'</span>, <span class="id" title="var">moduleiso'_to_moduleiso</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">moduleiso'_to_moduleiso_weq</span> {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>} : (<span class="id" title="var">moduleiso'</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>) ≃ (<span class="id" title="var">moduleiso</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>) :=<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">weqpair</span> (@<span class="id" title="var">moduleiso'_to_moduleiso</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>) <span class="id" title="var">moduleiso'_to_moduleiso_isweq</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Lemma</span> <span class="id" title="var">isaset_el_of_setwith2binop</span> {<span class="id" title="var">X</span> : <span class="id" title="var">setwith2binop</span>} : <span class="id" title="var">isaset</span> <span class="id" title="var">X</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">x</span> <span class="id" title="var">y</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> (<span class="id" title="var">setproperty</span> <span class="id" title="var">X</span>).<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Lemma</span> <span class="id" title="var">isaprop_isrigfun</span> {<span class="id" title="var">X</span> <span class="id" title="var">Y</span> : <span class="id" title="var">rig</span>} (<span class="id" title="var">f</span> : <span class="id" title="var">X</span> → <span class="id" title="var">Y</span>) : <span class="id" title="var">isaprop</span> (<span class="id" title="var">isrigfun</span> <span class="id" title="var">f</span>).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">isofhleveldirprod</span> 1).<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">isapropismonoidfun</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">isapropismonoidfun</span>.<br/>
+<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Lemma</span> <span class="id" title="var">isaset_rngfun</span> {<span class="id" title="var">X</span> <span class="id" title="var">Y</span> : <span class="id" title="var">rng</span>} : <span class="id" title="var">isaset</span> (<span class="id" title="var">rngfun</span> <span class="id" title="var">X</span> <span class="id" title="var">Y</span>).<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">isofhleveltotal2</span> 2).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="var">use</span> <span class="id" title="var">impred_isaset</span>. <span class="id" title="tactic">intro</span> <span class="id" title="var">x</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">Y</span> <span class="id" title="keyword">as</span> [<span class="id" title="var">Y</span> <span class="id" title="var">is</span>].<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">isaset_el_of_setwith2binop</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">intro</span> <span class="id" title="var">f</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">isasetaprop</span> (<span class="id" title="var">isaprop_isrigfun</span> <span class="id" title="var">f</span>)).<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">modules_univalence_weq1</span> (<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>) : (<span class="id" title="var">M</span> = <span class="id" title="var">N</span>) ≃ (<span class="id" title="var">M</span> ╝ <span class="id" title="var">N</span>) :=<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">total2_paths_equiv</span> <span class="id" title="var">_</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">modules_univalence_weq2</span> (<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>) : (<span class="id" title="var">M</span> ╝ <span class="id" title="var">N</span>) ≃ (<span class="id" title="var">moduleiso'</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>).<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">weqbandf</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">abgr_univalence</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">intro</span> <span class="id" title="var">e</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">invweq</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">M</span> <span class="id" title="keyword">as</span> [<span class="id" title="var">M</span> <span class="id" title="var">f</span>]. <span class="id" title="tactic">induction</span> <span class="id" title="var">N</span> <span class="id" title="keyword">as</span> [<span class="id" title="var">N</span> <span class="id" title="var">g</span>]. <span class="id" title="var">cbn</span> <span class="id" title="keyword">in</span> <span class="id" title="var">e</span>. <span class="id" title="tactic">induction</span> <span class="id" title="var">e</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">weqimplimpl</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">intro</span> <span class="id" title="var">i</span>. <span class="id" title="var">cbn</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">total2_paths2_f</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;× <span class="id" title="var">use</span> <span class="id" title="var">funextfun</span>. <span class="id" title="tactic">intro</span> <span class="id" title="var">r</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">total2_paths2_f</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">funextfun</span>. <span class="id" title="tactic">intro</span> <span class="id" title="var">x</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">exact</span> (<span class="id" title="var">i</span> <span class="id" title="var">r</span> <span class="id" title="var">x</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">isapropismonoidfun</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;× <span class="id" title="tactic">apply</span> <span class="id" title="var">isaprop_isrigfun</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">intro</span> <span class="id" title="var">i</span>. <span class="id" title="var">cbn</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">r</span> <span class="id" title="var">x</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">unfold</span> <span class="id" title="var">idmonoidiso</span>. <span class="id" title="var">cbn</span>. <span class="id" title="var">cbn</span> <span class="id" title="keyword">in</span> <span class="id" title="var">i</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">i</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="var">use</span> <span class="id" title="var">isaprop_islinear</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="var">use</span> <span class="id" title="var">isaset_rngfun</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">modules_univalence_map</span> (<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>) : (<span class="id" title="var">M</span> = <span class="id" title="var">N</span>) → (<span class="id" title="var">moduleiso</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>).<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intro</span> <span class="id" title="var">p</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">p</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">exact</span> (<span class="id" title="var">idmoduleiso</span> <span class="id" title="var">M</span>).<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">modules_univalence_map_isweq</span> (<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>) : <span class="id" title="var">isweq</span> (<span class="id" title="var">modules_univalence_map</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>).<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">isweqhomot</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">exact</span> (<span class="id" title="var">weqcomp</span> (<span class="id" title="var">weqcomp</span> (<span class="id" title="var">modules_univalence_weq1</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>) (<span class="id" title="var">modules_univalence_weq2</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>)) <span class="id" title="var">moduleiso'_to_moduleiso_weq</span>).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">intro</span> <span class="id" title="var">p</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">p</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> (<span class="id" title="var">pathscomp0</span> <span class="id" title="var">weqcomp_to_funcomp_app</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">idpath</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="var">use</span> <span class="id" title="var">weqproperty</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">modules_univalence</span> (<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>) : (<span class="id" title="var">M</span> = <span class="id" title="var">N</span>) ≃ (<span class="id" title="var">moduleiso</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>).<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">weqpair</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">exact</span> (<span class="id" title="var">modules_univalence_map</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">exact</span> (<span class="id" title="var">modules_univalence_map_isweq</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>).<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Equivalence between isomorphisms and moduleiso in R-mod 
+</div>
+<div class="code">
+
+<br/>
+&nbsp;<span class="id" title="keyword">Lemma</span> <span class="id" title="var">iso_isweq</span> {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">ob</span> <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>} (<span class="id" title="var">f</span> : <span class="id" title="var">iso</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>) : <span class="id" title="var">isweq</span> (<span class="id" title="var">pr1</span> (<span class="id" title="var">pr1</span> <span class="id" title="var">f</span>)).<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> (<span class="id" title="var">gradth</span> (<span class="id" title="var">pr1</span> (<span class="id" title="var">pr1</span> <span class="id" title="var">f</span>))).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">exact</span> (<span class="id" title="var">pr1</span> (<span class="id" title="var">inv_from_iso</span> <span class="id" title="var">f</span>)).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">intro</span> <span class="id" title="var">x</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">set</span> (<span class="id" title="var">T</span>:= <span class="id" title="var">iso_inv_after_iso</span> <span class="id" title="var">f</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">subtypeInjectivity</span> <span class="id" title="keyword">in</span> <span class="id" title="var">T</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">set</span> (<span class="id" title="var">T'</span>:= <span class="id" title="var">toforallpaths</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">T</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">T'</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">intro</span> <span class="id" title="var">g</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">isapropismodulefun</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">intro</span> <span class="id" title="var">y</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">set</span> (<span class="id" title="var">T</span>:= <span class="id" title="var">iso_after_iso_inv</span> <span class="id" title="var">f</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">subtypeInjectivity</span> <span class="id" title="keyword">in</span> <span class="id" title="var">T</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">set</span> (<span class="id" title="var">T'</span>:= <span class="id" title="var">toforallpaths</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">T</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">T'</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">intro</span> <span class="id" title="var">g</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">isapropismodulefun</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Lemma</span> <span class="id" title="var">iso_moduleiso</span> {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">ob</span> <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>} : <span class="id" title="var">iso</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span> → <span class="id" title="var">moduleiso</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intro</span> <span class="id" title="var">f</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">moduleisopair</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="var">use</span> <span class="id" title="var">weqpair</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">exact</span> (<span class="id" title="var">pr1</span> (<span class="id" title="var">pr1</span> <span class="id" title="var">f</span>)).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">exact</span> (<span class="id" title="var">iso_isweq</span> <span class="id" title="var">f</span>).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">exact</span> (<span class="id" title="var">pr2</span> (<span class="id" title="var">pr1</span> <span class="id" title="var">f</span>)).<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Lemma</span> <span class="id" title="var">moduleiso_is_iso</span> {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">ob</span> <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>} (<span class="id" title="var">f</span> : <span class="id" title="var">moduleiso</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>) : @<span class="id" title="var">is_iso</span> <span class="id" title="var">R</span>-<span class="id" title="var">mod</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span> (<span class="id" title="var">modulefunpair</span> <span class="id" title="var">f</span> (<span class="id" title="var">pr2</span> <span class="id" title="var">f</span>)).<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">is_iso_qinv</span> (<span class="id" title="var">C</span>:= <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>) <span class="id" title="var">_</span> (<span class="id" title="var">modulefunpair</span> (<span class="id" title="var">invmoduleiso</span> <span class="id" title="var">f</span>) (<span class="id" title="var">pr2</span> (<span class="id" title="var">invmoduleiso</span> <span class="id" title="var">f</span>)))).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">split</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="var">use</span> <span class="id" title="var">total2_paths_f</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="var">cbn</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">funextfun</span>. <span class="id" title="tactic">intro</span> <span class="id" title="var">x</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">unfold</span> <span class="id" title="var">funcomp</span>, <span class="id" title="var">idfun</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">homotinvweqweq</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">apply</span> <span class="id" title="var">isapropismodulefun</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="var">use</span> <span class="id" title="var">total2_paths_f</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="var">cbn</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">funextfun</span>. <span class="id" title="tactic">intro</span> <span class="id" title="var">y</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">homotweqinvweq</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">apply</span> <span class="id" title="var">isapropismodulefun</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Lemma</span> <span class="id" title="var">moduleiso_iso</span> {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">ob</span> <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>} : <span class="id" title="var">moduleiso</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span> → <span class="id" title="var">iso</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intro</span> <span class="id" title="var">f</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">isopair</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="var">use</span> <span class="id" title="var">tpair</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">exact</span> <span class="id" title="var">f</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">exact</span> (<span class="id" title="var">pr2</span> <span class="id" title="var">f</span>).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">exact</span> (<span class="id" title="var">moduleiso_is_iso</span> <span class="id" title="var">f</span>).<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Lemma</span> <span class="id" title="var">moduleiso_iso_isweq</span> {<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">ob</span> <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>} : <span class="id" title="var">isweq</span> (@<span class="id" title="var">moduleiso_iso</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>).<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> (<span class="id" title="var">gradth</span> <span class="id" title="var">_</span> <span class="id" title="var">iso_moduleiso</span>).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">intro</span> <span class="id" title="var">f</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">subtypeEquality</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">intro</span> <span class="id" title="var">w</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">isapropismodulefun</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">unfold</span> <span class="id" title="var">moduleiso_iso</span>, <span class="id" title="var">iso_moduleiso</span>. <span class="id" title="var">cbn</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">total2_paths_f</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;× <span class="id" title="var">cbn</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;× <span class="id" title="tactic">apply</span> <span class="id" title="var">isapropisweq</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">intro</span> <span class="id" title="var">f</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">unfold</span> <span class="id" title="var">iso_moduleiso</span>, <span class="id" title="var">moduleiso_iso</span>. <span class="id" title="var">cbn</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">total2_paths_f</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="var">cbn</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">apply</span> <span class="id" title="var">isaprop_is_iso</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">moduleiso_iso_weq</span> (<span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>) : (<span class="id" title="var">moduleiso</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>) ≃ (<span class="id" title="var">iso</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>) :=<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">weqpair</span> <span class="id" title="var">moduleiso_iso</span> <span class="id" title="var">moduleiso_iso_isweq</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">precategory_module_idtoiso_isweq</span> : ∏ <span class="id" title="var">M</span> <span class="id" title="var">N</span> : <span class="id" title="var">ob</span> <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>, <span class="id" title="var">isweq</span> (<span class="id" title="keyword">fun</span> <span class="id" title="var">p</span> : <span class="id" title="var">M</span> = <span class="id" title="var">N</span> ⇒ <span class="id" title="var">idtoiso</span> <span class="id" title="var">p</span>).<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> (<span class="id" title="var">isweqhomot</span> (<span class="id" title="var">weqcomp</span> (<span class="id" title="var">modules_univalence</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>) (<span class="id" title="var">moduleiso_iso_weq</span> <span class="id" title="var">M</span> <span class="id" title="var">N</span>)) <span class="id" title="var">_</span>).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">intro</span> <span class="id" title="var">p</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">induction</span> <span class="id" title="var">p</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> (<span class="id" title="var">pathscomp0</span> <span class="id" title="var">weqcomp_to_funcomp_app</span>). <span class="id" title="var">cbn</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">total2_paths_f</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">apply</span> <span class="id" title="var">isaprop_is_iso</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">weqproperty</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">precategory_module_is_category</span> : <span class="id" title="var">is_category</span> (<span class="id" title="var">R</span>-<span class="id" title="var">mod</span>).<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">dirprodpair</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">exact</span> (<span class="id" title="var">precategory_module_idtoiso_isweq</span>).<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">exact</span> (<span class="id" title="var">has_homsets_precategory_module</span>).<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Theorem</span> <span class="id" title="var">category_module</span> : <span class="id" title="var">category</span>.<br/>
+&nbsp;<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" title="var">use</span> <span class="id" title="var">tpair</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">exact</span> <span class="id" title="var">R</span>-<span class="id" title="var">mod</span>.<br/>
+&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">exact</span> <span class="id" title="var">precategory_module_is_category</span>.<br/>
+&nbsp;<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">End</span> <span class="id" title="var">modules_category</span>.<br/>
+
+<br/>
+&nbsp;<span class="id" title="keyword">Variable</span> <span class="id" title="var">R</span> : <span class="id" title="var">rng</span>.<br/>
+&nbsp;<span class="id" title="keyword">Local</span> <span class="id" title="keyword">Notation</span> "R-Mod" := (<span class="id" title="var">category_module</span> <span class="id" title="var">R</span>).<br/>
+</div>
+<hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>
