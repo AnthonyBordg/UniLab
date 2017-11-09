@@ -1,6 +1,6 @@
 
 
-(** Anthony Bordg ********************************************
+(** Anthony Bordg, June 2017 ********************************************
 
 Contents:
 
@@ -11,7 +11,11 @@ Algebra, III.1, p.121 in the revised third edition.
 - The opposite algebra ([algebra_opp])
 - Subalgebras of an algebra ([subalgebra])
 
-***********************************************)
+ ***********************************************)
+
+Require Import UniMath.Algebra.Rigs_and_Rings.
+Require Import UniMath.Algebra.Modules.
+Require Import Types_and_groups_with_operators.
 
 
 (** * Bilinear morphims between modules over a ring *)
